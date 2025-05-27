@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gemini y Cohere API App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    textarea {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      min-height: 80px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      display: block;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .responseContainer {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      background-color: #e9ecef;
+      min-height: 50px;
+      white-space: pre-wrap;
+    }
+    .positive {
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    .negative {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Estilos para el modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    .modal-positive {
+      border-left: 5px solid #28a745;
+    }
+    
+    .modal-negative {
+      border-left: 5px solid #dc3545;
+    }
+    
+    .modal h3 {
+      margin-top: 0;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .modal-positive h3 {
+      color: #28a745;
+    }
+    
+    .modal-negative h3 {
+      color: #dc3545;
+    }
+    
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+    
+    .modal-positive .modal-icon {
+      color: #28a745;
+    }
+    
+    .modal-negative .modal-icon {
+      color: #dc3545;
+    }
+    
+    .close-modal {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    
+    .close-modal:hover {
+      background-color: #0056b3;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      from { 
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to { 
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Consulta a Gemini y Cohere 🔍</h1>
+    <textarea id="inputText" placeholder="Escribe algo para preguntar a las IA..."></textarea>
+    <button onclick="sendToAIs()">Enviar a las IA</button>
+    <div class="loader" id="loader"></div>
+
+    <h2>Respuesta de Gemini:</h2>
+    <div class="responseContainer" id="responseGemini"></div>
+
+    <h2>Respuesta de Cohere:</h2>
+    <div class="responseContainer" id="responseCohere"></div>
+  </div>
+
+  <!-- Modal para mostrar el tipo de respuesta -->
+  <div id="sentimentModal" class="modal">
+    <div class="modal-content" id="modalContent">
+      <div class="modal-icon" id="modalIcon"></div>
+      <h3 id="modalTitle"></h3>
+      <p id="modalMessage"></p>
+      <button class="close-modal" onclick="closeModal()">Cerrar</button>
+    </div>
+  </div>
+<script src="script.js"></script>
+  
+</body>
+</html>
