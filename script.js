@@ -13,12 +13,12 @@ const GEMINI_API_KEY = "AIzaSyCqRRtLSaWmA1Ad-T6x-feOgPX_uBvhZyU";
         modalContent.className = 'modal-content modal-positivo';
         modalIcon.textContent = '😊';
         modalTitle.textContent = 'Respuesta Positiva';
-        modalMessage.textContent = `${aiName} ha dado una respuesta con sentimiento positivo.`;
+        modalMessage.textContent = `${aiName} ha dado una respuesta con sentimiento positivo.  :)`;
       } else if (sentiment === 'negativo') {
         modalContent.className = 'modal-content modal-negativo';
         modalIcon.textContent = '😔';
         modalTitle.textContent = 'Respuesta Negativa';
-        modalMessage.textContent = `${aiName} ha dado una respuesta con sentimiento negativo.`;
+        modalMessage.textContent = `${aiName} ha dado una respuesta con sentimiento negativo.  :(`;
       }
       
       modal.style.display = 'block';
