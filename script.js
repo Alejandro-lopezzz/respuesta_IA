@@ -1,5 +1,6 @@
 const GEMINI_API_KEY = "AIzaSyCqRRtLSaWmA1Ad-T6x-feOgPX_uBvhZyU";
     const COHERE_API_KEY = "q6V8qrwsWnNqfFytGxXHXMxejxgPUv6se0E3TVLx";
+    const PROMPT = 'Califica las respuestas sobre los comentarios que te voy a dar específicamente como "positivo" o "negativo". ';
 
     // Función para mostrar el modal
     function showSentimentModal(sentiment, aiName) {
@@ -72,7 +73,8 @@ const GEMINI_API_KEY = "AIzaSyCqRRtLSaWmA1Ad-T6x-feOgPX_uBvhZyU";
       loader.style.display = "block";
       responseGemini.textContent = "";
       responseCohere.textContent = "";
-
+      const mensajeCompleto = PROMPT + input;
+      
       const geminiFetch = fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
